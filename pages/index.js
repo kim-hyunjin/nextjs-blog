@@ -2,6 +2,8 @@ import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import utilsStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
+import Link from "next/link";
+import Date from "../components/date";
 
 /**
  * By returning allPostsData inside the props object in getStaticProps,
@@ -38,11 +40,13 @@ export default function Home({ allPostsData }) {
         <ul className={utilsStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilsStyles.listItem} key={id}>
-              {title}
+              <Link href={`/posts/${id}`}>
+                <a>{title}</a>
+              </Link>
               <br />
-              {id}
-              <br />
-              {date}
+              <small className={utilsStyles.lightText}>
+                <Date dateString={date} />
+              </small>
             </li>
           ))}
         </ul>
